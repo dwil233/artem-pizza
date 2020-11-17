@@ -1,13 +1,9 @@
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          This is Tractor React Course Pizza Ordering App
-        </p>
-      </header>
-    </div>
-  );
+import React from 'react';
+import {Configurator} from './Configurator';
+
+export function App() {
+  return <div className="container">
+    <Configurator/>
+  </div>
 }
 
-export default App;
