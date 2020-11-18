@@ -4,16 +4,16 @@ export function RadioButtonFilter({name, title, currentValue, itemsList, onChang
   return <div>
     {<label htmlFor={name}>{title}</label>}
       {itemsList.map((item) => {
-        return <span key={item}>
+        return <span key={item.id}>
           <label>
           <input
             type="radio"
-            value={item}
-            checked={currentValue === item}
+            value={item.id}
+            checked={currentValue === item.id}
             name={name}
             onChange={onChange}
           />
-          {item}
+          {item.name}
           </label>
         </span>
       })}
