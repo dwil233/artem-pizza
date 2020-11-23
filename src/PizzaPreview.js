@@ -1,5 +1,5 @@
 import React from 'react'
-import {calcPizzaPrice} from './utils';
+import {calcPizzaPrice} from './calcPrice';
 import {sauceTypes, doughTypes, pizzaSizes, cheeseTypes, vegetableTypes, meatTypes} from './pizzaData';
 
 export function PizzaPreview({pizzaProps, onSubmitHandler}) {
