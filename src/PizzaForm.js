@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {RadioButtonFilter} from './RadioButtonFilter';
 import {cheeseTypes, doughTypes, meatTypes, pizzaSizes, sauceTypes, vegetableTypes} from './pizzaData';
 import {CheckboxFilter} from './CheckboxFilter';
-import {calcPizzaPrice} from './utils';
+import {calcPizzaPrice} from './calcPrice';
 
 export function PizzaForm({initialProps, onPizzaConfigSubmit}) {
 
@@ -23,15 +23,19 @@ export function PizzaForm({initialProps, onPizzaConfigSubmit}) {
   }
 
   const handleCheckboxInput = (event) => {
-    const $el = event.target;
 
-    setPizzaProps((prevProps) => (
-      {...prevProps, [$el.name]:
-          $el.checked
-            ? [...prevProps[$el.name], $el.value]
-            : prevProps[$el.name].filter(item => item !== $el.value)
+    const {checked, value, name} = event.target;
+
+    setPizzaProps((prevProps) => {
+
+      return {...prevProps, [name]
+      :
+        checked
+          ? [...prevProps[name], value]
+          : [...prevProps[name].filter(item => item !== value)]
       }
-    ));
+
+    });
   }
 
   const handleSubmit = (event) => {
