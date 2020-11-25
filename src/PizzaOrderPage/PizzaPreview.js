@@ -1,8 +1,8 @@
 import React from 'react'
-import {calcPizzaPrice} from './calcPrice';
-import {sauceTypes, doughTypes, pizzaSizes, cheeseTypes, vegetableTypes, meatTypes} from './pizzaData';
+import {calcPizzaPrice} from '../shared/calcPrice';
+import {sauceTypes, doughTypes, pizzaSizes, cheeseTypes, vegetableTypes, meatTypes} from '../shared/pizzaData';
 
-export function PizzaPreview({pizzaProps, onSubmitHandler}) {
+export function PizzaPreview({pizzaProps}) {
 
   return (
     <>
@@ -26,9 +26,6 @@ export function PizzaPreview({pizzaProps, onSubmitHandler}) {
       <div>
         <h2>Сумма заказа: {calcPizzaPrice(pizzaProps)} руб</h2>
       </div>
-      <button onClick={onSubmitHandler}>
-      Вернуться в конфигуратор
-      </button>
     </>
   )
 }
