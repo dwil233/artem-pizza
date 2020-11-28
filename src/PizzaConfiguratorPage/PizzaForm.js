@@ -1,46 +1,41 @@
-import React, { useState } from 'react';
-import {RadioButtonFilter} from './RadioButtonFilter';
-import {cheeseTypes, doughTypes, meatTypes, pizzaSizes, sauceTypes, vegetableTypes} from './pizzaData';
-import {CheckboxFilter} from './CheckboxFilter';
-import {calcPizzaPrice} from './calcPrice';
+import React from 'react';
+import {RadioButtonFilter} from '../sharedComponents/RadioButtonFilter';
+import {CheckboxFilter} from '../sharedComponents/CheckboxFilter';
+import {calcPizzaPrice} from '../shared/calcPrice';
+import {usePizza} from '../pizzaContext';
+import {cheeseTypes,
+        doughTypes,
+        meatTypes,
+        pizzaSizes,
+        sauceTypes,
+        vegetableTypes} from '../shared/pizzaData';
 
-export function PizzaForm({initialProps, onPizzaConfigSubmit}) {
 
-  // Pizza parameters state
-  const [pizzaProps, setPizzaProps] = useState(initialProps || {
-    pizzaSize: pizzaSizes[0].id,
-    doughType: doughTypes[0].id,
-    sauceType: sauceTypes[0].id,
-    // store IDs here
-    cheeseType: [],     // ["mozarella", "cheddar"]
-    vegetableType: [],  // ["tomato"]
-    meatType: [],       // ["ham", "bacon", "pepperoni"]
-  });
+export function PizzaForm({ onPizzaConfigSubmit }) {
+
+  const { pizza, setPizza } = usePizza()
 
   const handleRadioInput = (event) => {
-    const $el = event.target;
-    setPizzaProps((prevProps) => ({...prevProps, [$el.name]: $el.value}))
+    const {name, value} = event.target;
+    setPizza((prevProps) => ({...prevProps, [name]: value}))
   }
 
   const handleCheckboxInput = (event) => {
-
     const {checked, value, name} = event.target;
 
-    setPizzaProps((prevProps) => {
-
+    setPizza((prevProps) => {
       return {...prevProps, [name]
       :
         checked
           ? [...prevProps[name], value]
           : [...prevProps[name].filter(item => item !== value)]
       }
-
     });
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onPizzaConfigSubmit(pizzaProps);
+    onPizzaConfigSubmit(pizza);
   };
 
   return (
@@ -48,46 +43,46 @@ export function PizzaForm({initialProps, onPizzaConfigSubmit}) {
       <RadioButtonFilter
         name="pizzaSize"
         title="Размер"
-        currentValue={pizzaProps.pizzaSize}
+        currentValue={pizza.pizzaSize}
         itemsList={pizzaSizes}
         onChange={handleRadioInput}
       />
       <RadioButtonFilter
         name="doughType"
         title="Тесто"
-        currentValue={pizzaProps.doughType}
+        currentValue={pizza.doughType}
         itemsList={doughTypes}
         onChange={handleRadioInput}
       />
       <RadioButtonFilter
         name="sauceType"
         title="Выберите соус"
-        currentValue={pizzaProps.sauceType}
+        currentValue={pizza.sauceType}
         itemsList={sauceTypes}
         onChange={handleRadioInput}
       />
       <CheckboxFilter
         name="cheeseType"
         title="Добавьте сыр"
-        currentValue={pizzaProps.cheeseType}
+        currentValue={pizza.cheeseType}
         itemsList={cheeseTypes}
         onChange={handleCheckboxInput}
       />
       <CheckboxFilter
         name="vegetableType"
         title="Добавьте овощи"
-        currentValue={pizzaProps.vegetableType}
+        currentValue={pizza.vegetableType}
         itemsList={vegetableTypes}
         onChange={handleCheckboxInput}
       />
       <CheckboxFilter
         name="meatType"
         title="Добавьте мясо"
-        currentValue={pizzaProps.meatType}
+        currentValue={pizza.meatType}
         itemsList={meatTypes}
         onChange={handleCheckboxInput}
       />
-      <button>Заказать за {calcPizzaPrice(pizzaProps)} руб</button>
+      <div><button>Заказать за {calcPizzaPrice(pizza)} руб</button></div>
     </form>
   )
 }

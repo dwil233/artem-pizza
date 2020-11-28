@@ -1,6 +1,8 @@
 import React from 'react';
-import {PizzaForm} from './PizzaForm';
 import "@testing-library/jest-dom";
+import {MemoryRouter} from 'react-router';
+import {PizzaProvider} from '../pizzaContext';
+import {PizzaForm} from './PizzaForm';
 
 const { fireEvent, render } = require("@testing-library/react")
 
@@ -8,21 +10,25 @@ const { fireEvent, render } = require("@testing-library/react")
 describe("PizzaForm", () => {
 
   it("renders correctly", () => {
-    const {getByText} = render(<PizzaForm/>)
+    const {getByText} = render(
+      <PizzaProvider><PizzaForm/></PizzaProvider>
+      )
     expect(getByText("Размер")).toBeInTheDocument()
     expect(getByText("Добавьте сыр")).toBeInTheDocument()
   })
 
   describe("with no valuable ingredients checked", () => {
     it("shows bare price", () => {
-      const {getByText} = render(<PizzaForm/>)
+      const {getByText} = render(<PizzaProvider><PizzaForm/></PizzaProvider>)
       expect(getByText("Заказать за 200 руб")).toBeInTheDocument()
     })
   })
 
   describe("with all ingredients checked", () => {
     it("shows maximum price", () => {
-      const {getByText, getByLabelText} = render(<PizzaForm/>)
+      const {getByText, getByLabelText} = render(
+        <PizzaProvider><PizzaForm/></PizzaProvider>
+      )
 
       fireEvent.click(getByText("35 см"))
 
@@ -49,7 +55,11 @@ describe("PizzaForm", () => {
     it("passes configured pizza", () => {
       const onPizzaConfigSubmit = jest.fn()
 
-      const { getByText } = render(<PizzaForm onPizzaConfigSubmit={onPizzaConfigSubmit} />)
+      const { getByText } = render(
+        <PizzaProvider>
+        <PizzaForm onPizzaConfigSubmit={onPizzaConfigSubmit} />
+        </PizzaProvider>
+        )
 
       fireEvent.click(getByText("35 см"))
       fireEvent.click(getByText("Моцарелла", {exact:false}))

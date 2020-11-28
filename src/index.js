@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom'
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
+import {PizzaProvider} from './pizzaContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <PizzaProvider>
+        <App />
+      </PizzaProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
