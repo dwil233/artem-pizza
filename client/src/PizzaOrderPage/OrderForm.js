@@ -37,7 +37,11 @@ export function OrderForm({orderTotal, onSubmit}) {
     }
   }
 
-  return <form onSubmit={handleSubmit(onSubmit)}>
+  const onSubmitForm = (data) => {
+    onSubmit(data)
+  }
+
+  return <form onSubmit={handleSubmit(onSubmitForm)}>
     <fieldset>
       <legend>Адрес доставки</legend>
       <input ref={register} name="address" placeholder="Введите адрес"/>

@@ -21,7 +21,9 @@ describe("OrderForm", () => {
 
   describe("on submit", () => {
     it("collects delivery and payment data", async () => {
+
       const onSubmit = jest.fn()
+
       const { getByText, getByLabelText, getByPlaceholderText } =
         render(<OrderForm orderTotal="200" onSubmit={onSubmit} />)
 
