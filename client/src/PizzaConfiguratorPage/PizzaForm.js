@@ -1,33 +1,33 @@
-import React from 'react';
-import {RadioButtonFilter} from '../sharedComponents/RadioButtonFilter';
-import {CheckboxFilter} from '../sharedComponents/CheckboxFilter';
-import {calcPizzaPrice} from '../shared/calcPrice';
-import {usePizza} from '../pizzaContext';
-import {cheeseTypes,
-        doughTypes,
-        meatTypes,
-        pizzaSizes,
-        sauceTypes,
-        vegetableTypes} from '../shared/pizzaData';
-import {useForm} from 'react-hook-form';
-
+import React from "react";
+import { RadioButtonFilter } from "../sharedComponents/RadioButtonFilter";
+import { CheckboxFilter } from "../sharedComponents/CheckboxFilter";
+import { calcPizzaPrice } from "../shared/calcPrice";
+import { usePizza } from "../pizzaContext";
+import {
+  cheeseTypes,
+  doughTypes,
+  meatTypes,
+  pizzaSizes,
+  sauceTypes,
+  vegetableTypes,
+} from "../shared/pizzaData";
+import { useForm } from "react-hook-form";
 
 export function PizzaForm({ onPizzaConfigSubmit }) {
-
-  const { pizza } = usePizza()
+  const { pizza } = usePizza();
   const { register, handleSubmit, watch } = useForm({
-    defaultValues: pizza
-  })
+    defaultValues: pizza,
+  });
 
   const values = watch();
-  const price = calcPizzaPrice(values)
+  const price = calcPizzaPrice(values);
 
   const onSubmit = (data) => {
     onPizzaConfigSubmit(data);
   };
 
   return (
-    <form onSubmit={ handleSubmit(onSubmit) }>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <RadioButtonFilter
         register={register}
         name="pizzaSize"
@@ -64,7 +64,9 @@ export function PizzaForm({ onPizzaConfigSubmit }) {
         title="Добавьте мясо"
         itemsList={meatTypes}
       />
-      <div><button>Заказать за {price} руб</button></div>
+      <div>
+        <button>Заказать за {price} руб</button>
+      </div>
     </form>
-  )
+  );
 }
