@@ -3,14 +3,8 @@ import { RadioButtonFilter } from "../sharedComponents/RadioButtonFilter";
 import { CheckboxFilter } from "../sharedComponents/CheckboxFilter";
 import { calcPizzaPrice } from "../shared/calcPrice";
 import { usePizza } from "../pizzaContext";
-import {
-  cheeseTypes,
-  doughTypes,
-  meatTypes,
-  pizzaSizes,
-  sauceTypes,
-  vegetableTypes,
-} from "../shared/pizzaData";
+import { useTypes } from "../typesContext";
+import { doughTypes, pizzaSizes, sauceTypes } from "../shared/pizzaData";
 import { useForm } from "react-hook-form";
 
 export function PizzaForm({ onPizzaConfigSubmit }) {
@@ -19,8 +13,14 @@ export function PizzaForm({ onPizzaConfigSubmit }) {
     defaultValues: pizza,
   });
 
+  console.log("PIZZA FORM", new Date());
+
+  // if it is a first time then do nothing and wait for types
+  const { types } = useTypes();
+  if (types.length === 0) return <></>;
+
   const values = watch();
-  const price = calcPizzaPrice(values);
+  const price = calcPizzaPrice(values, types);
 
   const onSubmit = (data) => {
     onPizzaConfigSubmit(data);
@@ -50,19 +50,19 @@ export function PizzaForm({ onPizzaConfigSubmit }) {
         register={register}
         name="cheeseType"
         title="Добавьте сыр"
-        itemsList={cheeseTypes}
+        itemsList={types[0]}
       />
       <CheckboxFilter
         register={register}
         name="vegetableType"
         title="Добавьте овощи"
-        itemsList={vegetableTypes}
+        itemsList={types[1]}
       />
       <CheckboxFilter
         register={register}
         name="meatType"
         title="Добавьте мясо"
-        itemsList={meatTypes}
+        itemsList={types[2]}
       />
       <div>
         <button>Заказать за {price} руб</button>

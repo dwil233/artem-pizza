@@ -1,17 +1,19 @@
 import React from "react";
 
 export function CheckboxFilter({ register, name, title, itemsList }) {
+  console.log("CHECKBOXFILTER", name, new Date());
+
   return (
     <div>
       {<label htmlFor={name}>{title}</label>}
       {itemsList.map((item) => {
         return (
-          <span key={item.id}>
+          <span key={item.slug}>
             <label>
               <input
                 ref={register}
                 type="checkbox"
-                value={item.id}
+                value={item.slug}
                 name={name}
               />
               {item.name}&nbsp;{item.price}&nbsp;&#8381;

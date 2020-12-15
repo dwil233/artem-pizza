@@ -3,40 +3,40 @@ export const BARE_PIZZA_PRICE = 200;
 
 // Size
 export const pizzaSizes = [
-  { id: "size30", name: "30 см", price: 0 },
-  { id: "size35", name: "35 см", price: 50 }
+  { slug: "size30", name: "30 см", price: 0 },
+  { slug: "size35", name: "35 см", price: 50 },
 ];
 
 // Dough
 export const doughTypes = [
-  { id: "thin", name: "Тонкое" },
-  { id: "puffy", name: "Пышное" }
+  { slug: "thin", name: "Тонкое" },
+  { slug: "puffy", name: "Пышное" },
 ];
 
 // Sauce
 export const sauceTypes = [
-  { id: "tomato", name: "Томатный" },
-  { id: "white", name: "Белый" },
-  { id: "spicy", name: "Острый" }
+  { slug: "tomato", name: "Томатный" },
+  { slug: "white", name: "Белый" },
+  { slug: "spicy", name: "Острый" },
 ];
 
 // Cheese
 export const cheeseTypes = [
-  { id: "mozarella", name: "Моцарелла", price: 29 },
-  { id: "cheddar", name: "Чеддер", price: 29 },
-  { id: "dor_blue", name: "Дор блю", price: 29 }
+  { slug: "mozarella", name: "Моцарелла", price: 29 },
+  { slug: "cheddar", name: "Чеддер", price: 29 },
+  { slug: "dor_blue", name: "Дор блю", price: 29 },
 ];
 
 // Vegetables
 export const vegetableTypes = [
-  { id: "tomato", name: "Помидоры", price: 29 },
-  { id: "mushroom", name: "Грибы", price: 29 },
-  { id: "bell_pepper", name: "Перец", price: 29 }
+  { slug: "tomato", name: "Помидоры", price: 29 },
+  { slug: "mushroom", name: "Грибы", price: 29 },
+  { slug: "bell_pepper", name: "Перец", price: 29 },
 ];
 
 // Meat
 export const meatTypes = [
-  { id: "bacon", name: "Бекон", price: 29 },
-  { id: "pepperoni", name: "Пепперони", price: 29 },
-  { id: "ham", name: "Ветчина", price: 29 }
+  { slug: "bacon", name: "Бекон", price: 29 },
+  { slug: "pepperoni", name: "Пепперони", price: 29 },
+  { slug: "ham", name: "Ветчина", price: 29 },
 ];
