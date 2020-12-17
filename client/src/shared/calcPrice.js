@@ -8,21 +8,21 @@ export const calcPizzaPrice = (pizzaProps, types) => {
   price =
     price +
     pizzaProps.cheeseType.reduce(
-      (acc, item) => acc + +types[0].find((i) => i.slug === item).price,
+      (acc, item) => acc + types[0].find((i) => i.slug === item).price,
       0
     );
 
   price =
     price +
     pizzaProps.vegetableType.reduce(
-      (acc, item) => acc + +types[1].find((i) => i.slug === item).price,
+      (acc, item) => acc + types[1].find((i) => i.slug === item).price,
       0
     );
 
   price =
     price +
     pizzaProps.meatType.reduce(
-      (acc, item) => acc + +types[2].find((i) => i.slug === item).price,
+      (acc, item) => acc + types[2].find((i) => i.slug === item).price,
       0
     );
 

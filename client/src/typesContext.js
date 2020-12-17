@@ -9,13 +9,17 @@ export function TypesProvider({ children }) {
   console.log("TYPESPROVIDER", Date.now());
 
   useEffect(() => {
-    try {
-      getIngredientTypes().then((types) => {
-        setTypes(types);
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
+    const loadTypes = async () => {
+      try {
+        await getIngredientTypes().then((types) => {
+          console.log(types);
+          setTypes(types);
+        });
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+    loadTypes();
   }, []);
 
   return (
