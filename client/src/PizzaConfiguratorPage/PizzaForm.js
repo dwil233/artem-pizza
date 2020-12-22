@@ -1,10 +1,10 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { doughTypes, pizzaSizes, sauceTypes } from "../shared/pizzaData";
 import { RadioButtonFilter } from "../sharedComponents/RadioButtonFilter";
 import { CheckboxFilter } from "../sharedComponents/CheckboxFilter";
 import { calcPizzaPrice } from "../shared/calcPrice";
-import { doughTypes, pizzaSizes, sauceTypes } from "../shared/pizzaData";
-import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { getToppings } from "../state/toppings/selectors";
 import { getPizza } from "../state/pizza/selectors";
 

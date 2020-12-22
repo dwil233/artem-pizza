@@ -1,10 +1,10 @@
-import { PizzaPreview } from "./PizzaPreview";
 import React, { useState } from "react";
+import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+import { PizzaPreview } from "./PizzaPreview";
 import { OrderForm } from "./OrderForm";
 import { calcPizzaPrice } from "../shared/calcPrice";
-import { useHistory } from "react-router";
 import { addOrder } from "../shared/products.api";
-import { useSelector } from "react-redux";
 import { getPizza } from "../state/pizza/selectors";
 import { getToppings } from "../state/toppings/selectors";
 import { getOrderData } from "./utils";

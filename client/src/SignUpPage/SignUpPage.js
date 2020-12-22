@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { authLogin } from "../state/auth/actions";
+import { authSlice } from "../state/auth/authReducer";
 
 export function SignUpPage() {
   const location = useLocation();
@@ -14,7 +14,7 @@ export function SignUpPage() {
   const cameFrom = queryParams.get("cameFrom");
 
   const onSubmit = (data) => {
-    dispatch(authLogin(data.email));
+    dispatch(authSlice.actions.signup(data.email));
     cameFrom ? history.push(cameFrom) : history.push("/");
   };
 

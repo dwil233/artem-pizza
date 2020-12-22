@@ -1,16 +1,11 @@
-export const getIsLoading = (state) => state.toppings === "loading";
+export const getIsLoading = (state) => state.toppings.pending;
 
 export const getError = (state) => {
-  if (typeof state.toppings === "string" && state.toppings !== "loading") {
-    return state.toppings;
+  if (state.toppings.error) {
+    return state.toppings.error;
   } else {
     return "";
   }
 };
 
-export const getToppings = (state) => {
-  if (typeof state.toppings === "string") {
-    return [];
-  }
-  return state.toppings;
-};
+export const getToppings = (state) => state.toppings.data;

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { authLogin } from "../state/auth/actions";
 import { useDispatch } from "react-redux";
+import { authSlice } from "../state/auth/authReducer";
 
 export function SignInPage() {
   const history = useHistory();
@@ -14,7 +14,8 @@ export function SignInPage() {
   const cameFrom = queryParams.get("cameFrom");
 
   const onSubmit = (data) => {
-    dispatch(authLogin(data.email));
+    console.log("SUBMIT LOGIN", data);
+    dispatch(authSlice.actions.login(data.email));
     cameFrom ? history.push(cameFrom) : history.push("/");
   };
 
@@ -24,7 +25,12 @@ export function SignInPage() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           E-mail
-          <input ref={register({ required: true })} type="email" name="email" />
+          <input
+            ref={register({ required: true })}
+            type="email"
+            name="email"
+            autoComplete="username"
+          />
           {errors.email && <p>Введите адрес электронной почты</p>}
         </label>
         <label>
@@ -33,6 +39,7 @@ export function SignInPage() {
             ref={register({ required: true })}
             type="password"
             name="password"
+            autoComplete="current-password"
           />
           {errors.password && <p>Пароль не должен быть пустым</p>}
         </label>

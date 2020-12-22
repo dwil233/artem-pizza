@@ -1,10 +1,12 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { defaultPizzaValues } from "../../pizzaContext";
 
-export const pizzaReducer = (state = defaultPizzaValues, action) => {
-  switch (action.type) {
-    case "set_pizza":
-      return action.pizza;
-    default:
-      return state;
-  }
-};
+export const pizzaSlice = createSlice({
+  name: "pizza",
+  initialState: defaultPizzaValues,
+  reducers: {
+    set_pizza: (state, action) => {
+      Object.keys(state).forEach((key) => (state[key] = action.payload[key]));
+    },
+  },
+});

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { PizzaForm } from "./PizzaForm";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { setPizza } from "../state/pizza/actions";
-import { fetchToppings } from "../state/toppings/thunk";
+import { PizzaForm } from "./PizzaForm";
+import { fetchToppings } from "../state/toppings/toppingsReducer";
+import { pizzaSlice } from "../state/pizza/pizzaReducer";
 import { getError, getIsLoading } from "../state/toppings/selectors";
 
 export function PizzaConfiguratorPage() {
@@ -14,7 +14,7 @@ export function PizzaConfiguratorPage() {
   const error = useSelector(getError);
 
   const handleSubmit = (pizza) => {
-    dispatch(setPizza(pizza));
+    dispatch(pizzaSlice.actions.set_pizza(pizza));
     history.push("/pizza-order");
   };
 

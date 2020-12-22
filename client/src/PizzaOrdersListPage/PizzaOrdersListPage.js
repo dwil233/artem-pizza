@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getOrders } from "../shared/products.api";
 import { useSelector } from "react-redux";
-import { getIsAuthorized } from "../state/auth/selectors";
 import { Link, useLocation } from "react-router-dom";
+import { getOrders } from "../shared/products.api";
+import { getIsAuthorized } from "../state/auth/selectors";
 
 export function PizzaOrdersListPage() {
   const [error, setError] = useState(false);
