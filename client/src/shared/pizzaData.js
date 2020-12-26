@@ -40,3 +40,13 @@ export const meatTypes = [
   { slug: "pepperoni", name: "Пепперони", price: 29 },
   { slug: "ham", name: "Ветчина", price: 29 },
 ];
+
+export const defaultPizzaValues = {
+  pizzaSize: pizzaSizes[0].slug,
+  doughType: doughTypes[0].slug,
+  sauceType: sauceTypes[0].slug,
+  // store IDs here
+  cheeseType: [], // ["mozarella", "cheddar"]
+  vegetableType: [], // ["tomato"]
+  meatType: [], // ["ham", "bacon", "pepperoni"]
+};

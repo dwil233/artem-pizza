@@ -17,7 +17,6 @@ export function PizzaForm({ onPizzaConfigSubmit }) {
   });
 
   const toppings = useSelector(getToppings);
-  if (toppings.length === 0) return <></>;
 
   const values = watch();
   const price = calcPizzaPrice(values, toppings);

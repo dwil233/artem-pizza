@@ -1,4 +1,4 @@
-import logger from "redux-logger";
+// import logger from "redux-logger";
 import { configureStore } from "@reduxjs/toolkit";
 import { toppingsSlice } from "./state/toppings/toppingsReducer";
 import { pizzaSlice } from "./state/pizza/pizzaReducer";
@@ -12,6 +12,6 @@ const reducer = {
 
 export const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(), //.concat(logger),
   devTools: false,
 });

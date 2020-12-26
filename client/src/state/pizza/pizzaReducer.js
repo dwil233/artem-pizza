@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { defaultPizzaValues } from "../../pizzaContext";
+import { defaultPizzaValues } from "../../shared/pizzaData";
 
 export const pizzaSlice = createSlice({
   name: "pizza",

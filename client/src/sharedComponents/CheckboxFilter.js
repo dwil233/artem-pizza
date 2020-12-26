@@ -1,8 +1,6 @@
 import React from "react";
 
 export function CheckboxFilter({ register, name, title, itemsList }) {
-  console.log("CHECKBOXFILTER", name, new Date());
-
   return (
     <div>
       {<label htmlFor={name}>{title}</label>}

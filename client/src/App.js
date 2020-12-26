@@ -13,7 +13,7 @@ import { getIsAuthorized, getUser } from "./state/auth/selectors";
 import { authSlice } from "./state/auth/authReducer";
 
 export function App() {
-  console.log("APP", Date.now());
+  console.log("APP", new Date());
 
   const isAuthorized = useSelector(getIsAuthorized);
   const currentUser = useSelector(getUser);

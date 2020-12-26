@@ -1,27 +1,29 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { PizzaProvider } from "../pizzaContext";
 import { PizzaForm } from "./PizzaForm";
 import { fireEvent, act, render } from "@testing-library/react";
-import { TypesProvider } from "../typesContext";
+import { Provider } from "react-redux";
+import { store } from "../store";
 
 describe("PizzaForm", () => {
   it("renders correctly", () => {
-    const { getByText } = render(
-      <PizzaProvider>
-        <PizzaForm />
-      </PizzaProvider>
-    );
+    const { getByText } = act(() => {
+      render(
+        <Provider store={store}>
+          <PizzaForm />
+        </Provider>
+      );
+    });
     expect(getByText("Размер")).toBeInTheDocument();
     expect(getByText("Добавьте сыр")).toBeInTheDocument();
   });
 
-  describe("with no valuable ingredients checked", () => {
+  describe("with no valuable ingredients selected", () => {
     it("shows bare price", () => {
       const { getByText } = render(
-        <PizzaProvider>
+        <Provider store={store}>
           <PizzaForm />
-        </PizzaProvider>
+        </Provider>
       );
       expect(getByText("Заказать за 200 руб")).toBeInTheDocument();
     });
@@ -30,9 +32,9 @@ describe("PizzaForm", () => {
   describe("with all ingredients checked", () => {
     it("shows maximum price", () => {
       const { getByText, getByLabelText } = render(
-        <PizzaProvider>
+        <Provider store={store}>
           <PizzaForm />
-        </PizzaProvider>
+        </Provider>
       );
 
       fireEvent.click(getByText("35 см"));
@@ -61,11 +63,9 @@ describe("PizzaForm", () => {
       const onPizzaConfigSubmit = jest.fn();
 
       const { getByText } = render(
-        <TypesProvider>
-          <PizzaProvider>
-            <PizzaForm onPizzaConfigSubmit={onPizzaConfigSubmit} />
-          </PizzaProvider>
-        </TypesProvider>
+        <Provider store={store}>
+          <PizzaForm onPizzaConfigSubmit={onPizzaConfigSubmit} />
+        </Provider>
       );
 
       fireEvent.click(getByText("35 см"));
