@@ -1,41 +1,42 @@
 import React from "react";
 import { sauceTypes, doughTypes, pizzaSizes } from "../shared/pizzaData";
-import { useTypes } from "../typesContext";
+import { useSelector } from "react-redux";
+import { getPizza } from "../state/pizza/selectors";
+import { getToppings } from "../state/toppings/selectors";
 
-export function PizzaPreview({ pizzaProps, orderTotal }) {
-  const { types } = useTypes();
-  if (types.length === 0) return <></>;
+export function PizzaPreview({ orderTotal }) {
+  const pizza = useSelector(getPizza);
+  const toppings = useSelector(getToppings);
+  if (toppings.length === 0) return <></>;
 
   return (
     <>
       <div>
+        <span>{pizzaSizes.find((i) => i.slug === pizza.pizzaSize).name}</span>{" "}
+        &bull;&nbsp;
         <span>
-          {pizzaSizes.find((i) => i.slug === pizzaProps.pizzaSize).name}
+          {doughTypes.find((i) => i.slug === pizza.doughType).name} тесто
         </span>{" "}
         &bull;&nbsp;
         <span>
-          {doughTypes.find((i) => i.slug === pizzaProps.doughType).name} тесто
-        </span>{" "}
-        &bull;&nbsp;
-        <span>
-          {sauceTypes.find((i) => i.slug === pizzaProps.sauceType).name} соус
+          {sauceTypes.find((i) => i.slug === pizza.sauceType).name} соус
         </span>
-        {pizzaProps.cheeseType.map((item) => (
+        {pizza.cheeseType.map((item) => (
           <span key={item}>
             {" "}
-            &bull;&nbsp;{types[0].find((i) => i.slug === item).name}
+            &bull;&nbsp;{toppings[0].find((i) => i.slug === item).name}
           </span>
         ))}
-        {pizzaProps.vegetableType.map((item) => (
+        {pizza.vegetableType.map((item) => (
           <span key={item}>
             {" "}
-            &bull;&nbsp;{types[1].find((i) => i.slug === item).name}
+            &bull;&nbsp;{toppings[1].find((i) => i.slug === item).name}
           </span>
         ))}
-        {pizzaProps.meatType.map((item) => (
+        {pizza.meatType.map((item) => (
           <span key={item}>
             {" "}
-            &bull;&nbsp;{types[2].find((i) => i.slug === item).name}
+            &bull;&nbsp;{toppings[2].find((i) => i.slug === item).name}
           </span>
         ))}
       </div>

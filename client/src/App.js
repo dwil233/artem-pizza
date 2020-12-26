@@ -8,17 +8,40 @@ import { Link } from "react-router-dom";
 import { SignUpPage } from "./SignUpPage";
 import { SignInPage } from "./SignInPage";
 import { PizzaOrdersListPage } from "./PizzaOrdersListPage";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsAuthorized, getUser } from "./state/auth/selectors";
+import { authLogout } from "./state/auth/actions";
 
 export function App() {
   console.log("APP", Date.now());
+
+  const isAuthorized = useSelector(getIsAuthorized);
+  const currentUser = useSelector(getUser);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(authLogout());
+  };
 
   return (
     <div className="container">
       <nav>
         <ul>
           <li>
-            <Link to="/signup">Регистрация</Link>{" "}
-            <Link to="/signin">Авторизация</Link>
+            {isAuthorized && (
+              <>
+                <span>{currentUser} </span>
+                <Link to="/" onClick={handleLogout}>
+                  Выйти
+                </Link>
+              </>
+            )}
+            {!isAuthorized && (
+              <>
+                <Link to="/signin">Войти</Link>&nbsp;
+                <Link to="/signup">Регистрация</Link>
+              </>
+            )}
           </li>
           <li>&nbsp;</li>
           <li>

@@ -2,25 +2,25 @@ import React from "react";
 import { RadioButtonFilter } from "../sharedComponents/RadioButtonFilter";
 import { CheckboxFilter } from "../sharedComponents/CheckboxFilter";
 import { calcPizzaPrice } from "../shared/calcPrice";
-import { usePizza } from "../pizzaContext";
-import { useTypes } from "../typesContext";
 import { doughTypes, pizzaSizes, sauceTypes } from "../shared/pizzaData";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { getToppings } from "../state/toppings/selectors";
+import { getPizza } from "../state/pizza/selectors";
 
 export function PizzaForm({ onPizzaConfigSubmit }) {
-  const { pizza } = usePizza();
+  console.log("PIZZA FORM", new Date());
+
+  const pizza = useSelector(getPizza);
   const { register, handleSubmit, watch } = useForm({
     defaultValues: pizza,
   });
 
-  console.log("PIZZA FORM", new Date());
-
-  // if it is a first time then do nothing and wait for types
-  const { types } = useTypes();
-  if (types.length === 0) return <></>;
+  const toppings = useSelector(getToppings);
+  if (toppings.length === 0) return <></>;
 
   const values = watch();
-  const price = calcPizzaPrice(values, types);
+  const price = calcPizzaPrice(values, toppings);
 
   const onSubmit = (data) => {
     onPizzaConfigSubmit(data);
@@ -50,19 +50,19 @@ export function PizzaForm({ onPizzaConfigSubmit }) {
         register={register}
         name="cheeseType"
         title="Добавьте сыр"
-        itemsList={types[0]}
+        itemsList={toppings[0]}
       />
       <CheckboxFilter
         register={register}
         name="vegetableType"
         title="Добавьте овощи"
-        itemsList={types[1]}
+        itemsList={toppings[1]}
       />
       <CheckboxFilter
         register={register}
         name="meatType"
         title="Добавьте мясо"
-        itemsList={types[2]}
+        itemsList={toppings[2]}
       />
       <div>
         <button>Заказать за {price} руб</button>
