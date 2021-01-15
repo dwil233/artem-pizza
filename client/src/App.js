@@ -1,26 +1,26 @@
 import React from "react";
 import { Route, Switch } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { PizzaConfiguratorPage } from "./PizzaConfiguratorPage";
 import { PizzaOrderPage } from "./PizzaOrderPage";
 import { PizzaCheckPage } from "./PizzaCheckPage";
 import { NotFoundPage } from "./NotFoundPage";
-import { Link } from "react-router-dom";
 import { SignUpPage } from "./SignUpPage";
 import { SignInPage } from "./SignInPage";
 import { PizzaOrdersListPage } from "./PizzaOrdersListPage";
-import { useDispatch, useSelector } from "react-redux";
 import { getIsAuthorized, getUser } from "./state/auth/selectors";
-import { authLogout } from "./state/auth/actions";
+import { authSlice } from "./state/auth/authReducer";
 
 export function App() {
-  console.log("APP", Date.now());
+  console.log("APP", new Date());
 
   const isAuthorized = useSelector(getIsAuthorized);
   const currentUser = useSelector(getUser);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(authLogout());
+    dispatch(authSlice.actions.logout());
   };
 
   return (

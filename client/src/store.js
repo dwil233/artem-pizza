@@ -1,14 +1,17 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { toppingsReducer } from "./state/toppings/toppingsReducer";
-import { pizzaReducer } from "./state/pizza/pizzaReducer";
-import logger from "redux-logger";
-import thunk from "redux-thunk";
-import { authReducer } from "./state/auth/authReducer";
+// import logger from "redux-logger";
+import { configureStore } from "@reduxjs/toolkit";
+import { toppingsSlice } from "./state/toppings/toppingsReducer";
+import { pizzaSlice } from "./state/pizza/pizzaReducer";
+import { authSlice } from "./state/auth/authReducer";
 
-const rootReducer = combineReducers({
-  toppings: toppingsReducer,
-  pizza: pizzaReducer,
-  user: authReducer,
+const reducer = {
+  toppings: toppingsSlice.reducer,
+  pizza: pizzaSlice.reducer,
+  auth: authSlice.reducer,
+};
+
+export const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(), //.concat(logger),
+  devTools: false,
 });
-
-export const store = createStore(rootReducer, applyMiddleware(logger, thunk));
