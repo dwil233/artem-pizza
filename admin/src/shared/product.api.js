@@ -2,7 +2,6 @@ export const HOST = "http://localhost:3001";
 
 export const getProductList = async () => {
   const url = `${HOST}/ingredients`;
-  console.log(url);
 
   return fetch(url, { method: "GET" })
     .then((response) => response.json())
@@ -12,27 +11,26 @@ export const getProductList = async () => {
     });
 };
 
-export const getProductInfo = async (slug) => {
-  const url = `${HOST}/ingredients/${slug}`;
-  console.log(url);
+export const getProductInfo = async (prodId) => {
+  const url = `${HOST}/ingredients/${prodId}`;
 
   return fetch(url)
     .then((response) => response.json())
     .then((json) => json)
     .catch(() => {
       throw new Error(
-        `Не удалось загрузить данные по продукту с кодом ${slug}`
+        `Не удалось загрузить данные по продукту с кодом ${prodId}`
       );
     });
 };
 
-export const addOrEditProduct = async (data, slugToUpdate = undefined) => {
-  const { category, slug, name, price, image } = data;
+export const addOrEditProduct = async (data, prodId = undefined) => {
+  const { category, slug, name, price, image, thumbnail } = data;
   let url, method;
 
-  // if slugToUpdate is presented then update its data or add new one otherwise
-  if (slugToUpdate) {
-    url = `${HOST}/ingredients/${slugToUpdate}`;
+  // if product ID is presented then update its data or add new one otherwise
+  if (prodId) {
+    url = `${HOST}/ingredients/${prodId}`;
     method = "PUT";
   } else {
     url = `${HOST}/ingredients`;
@@ -41,11 +39,13 @@ export const addOrEditProduct = async (data, slugToUpdate = undefined) => {
 
   const formData = new FormData();
 
+  if (prodId) formData.append("ingredientId", prodId);
   formData.append("category", category);
   formData.append("slug", slug);
   formData.append("name", name);
   formData.append("price", price);
   formData.append("image", image[0]);
+  formData.append("thumbnail", thumbnail[0]);
 
   fetch(url, {
     method: method,
@@ -58,14 +58,13 @@ export const addOrEditProduct = async (data, slugToUpdate = undefined) => {
     });
 };
 
-export const deleteProduct = async (slug) => {
-  const url = `${HOST}/ingredients/${slug}`;
-  console.log(url);
+export const deleteProduct = async (prodId) => {
+  const url = `${HOST}/ingredients/${prodId}`;
 
   return fetch(url, { method: "DELETE" })
     .then((response) => response.json())
     .then((json) => json)
     .catch(() => {
-      throw new Error(`Не удалось удалить продукт с кодом ${slug}`);
+      throw new Error(`Не удалось удалить продукт с кодом ${prodId}`);
     });
 };

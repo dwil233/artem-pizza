@@ -1,6 +1,5 @@
 export const getIngredientTypes = async () => {
   const url = `${process.env.REACT_APP_HOST}/ingredients`;
-  console.log(url);
 
   return fetch(url)
     .then((response) => response.json())
@@ -18,7 +17,6 @@ export const getIngredientTypes = async () => {
 
 export const addOrder = async (orderData) => {
   const url = `${process.env.REACT_APP_HOST}/orders`;
-  console.log(url);
 
   fetch(url, {
     method: "POST",
@@ -36,7 +34,6 @@ export const addOrder = async (orderData) => {
 
 export const getOrders = async () => {
   const url = `${process.env.REACT_APP_HOST}/orders`;
-  console.log(url);
 
   return fetch(url)
     .then((response) => response.json())

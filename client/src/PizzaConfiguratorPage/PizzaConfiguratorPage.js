@@ -23,17 +23,22 @@ export function PizzaConfiguratorPage() {
     history.push("/pizza-order");
   };
 
-  console.log("PIZZA CONFIGURATOR PAGE", new Date());
-
   useEffect(() => {
     dispatch(fetchToppings());
   }, [dispatch]); // passing [] instead of [dispatch] leads to double call of fetchToppings
 
+  if (isLoading)
+    return (
+      <div style={{ padding: "16px", textAlign: "center" }}>
+        <img src="assets/img/loading.gif" alt="loading..." />
+      </div>
+    );
+
+  if (error) return <h3>ОШИБКА: {error}</h3>;
+
   return (
     <>
-      <h1>АртёмПицца: Соберите пиццу</h1>
-      {isLoading && <h3>Loading...</h3>}
-      {error && <h3>ОШИБКА: {error}</h3>}
+      <h1>Собери свою пиццу</h1>
       {toppings.length && <PizzaForm onPizzaConfigSubmit={handleSubmit} />}
     </>
   );

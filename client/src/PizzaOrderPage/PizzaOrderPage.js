@@ -15,11 +15,10 @@ export function PizzaOrderPage() {
 
   const pizza = useSelector(getPizza);
   const toppings = useSelector(getToppings);
+
   if (toppings.length === 0) return <></>;
 
   const orderTotal = calcPizzaPrice(pizza, toppings);
-
-  console.log("PIZZA ORDER PAGE", new Date());
 
   const onSubmit = async (data) => {
     try {
@@ -31,11 +30,10 @@ export function PizzaOrderPage() {
     }
   };
   return (
-    <>
-      <h1>АртёмПицца: Ваш заказ</h1>
+    <div style={{ background: "#F9F9FB", paddingTop: "2px" }}>
       {error && <h3>{error.message}</h3>}
-      <PizzaPreview orderTotal={orderTotal} />
+      <PizzaPreview orderTotal={orderTotal} pizza={pizza} toppings={toppings} />
       <OrderForm orderTotal={orderTotal} onSubmit={onSubmit} />
-    </>
+    </div>
   );
 }

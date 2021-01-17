@@ -1,11 +1,9 @@
 export const getCardType = (cardNumber) => {
-  let cardType = ""
+  if (!cardNumber) return null;
 
-  if (!cardNumber) return ""
+  if (cardNumber[0] === "2") return "mir.png";
+  if (cardNumber[0] === "4") return "visa.png";
+  if (cardNumber[0] === "5") return "mc.png";
 
-  if (cardNumber[0]==="2") cardType="Мир"
-  if (cardNumber[0]==="4") cardType="VISA"
-  if (cardNumber[0]==="5") cardType="MasterCard"
-
-  return cardType
-}
+  return null;
+};
