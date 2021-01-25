@@ -24,12 +24,11 @@ a {
 }
 
 table {
-  display: block;
   margin: 15px;
   border: 1px solid goldenrod;
 }
 table td {
-  border: 1px solid goldenrod;
+  border: 1px solid lightgray;
 }
 table td a {
   display: block;

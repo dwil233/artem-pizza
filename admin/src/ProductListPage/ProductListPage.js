@@ -9,7 +9,6 @@ export function ProductListPage() {
 
   useEffect(() => {
     (async function loadProductList() {
-      console.log("loadProductList");
       try {
         const data = await getProductList();
         setProductList(data);
@@ -22,14 +21,14 @@ export function ProductListPage() {
   const onEdit = (event) => {
     const { dataset } = event.target;
     event.preventDefault();
-    history.push(`/product/${dataset.slug}`);
+    history.push(`/product/${dataset.id}`);
   };
 
   const onDelete = async (event) => {
     const { dataset } = event.target;
     event.preventDefault();
-    if (window.confirm(`Удалить продукт ${dataset.slug}`)) {
-      await deleteProduct(dataset.slug);
+    if (window.confirm(`Удалить продукт ${dataset.id}`)) {
+      await deleteProduct(dataset.id);
       window.location.reload();
     }
   };
@@ -41,18 +40,21 @@ export function ProductListPage() {
       <table>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Категория</th>
             <th>Код</th>
-            <th style={{ width: "60%" }}>Название</th>
+            <th>Название</th>
             <th>Цена</th>
             <th>Картинка</th>
+            <th>Превью</th>
             <th>?</th>
           </tr>
         </thead>
         <tbody>
           {productList &&
             productList.map((product) => (
-              <tr key={product.slug}>
+              <tr key={product.id}>
+                <td>{product.id}</td>
                 <td>{product.category}</td>
                 <td>{product.slug}</td>
                 <td>{product.name}</td>
@@ -61,14 +63,21 @@ export function ProductListPage() {
                   <img
                     src={`${HOST}/${product.image}`}
                     alt={product.name}
-                    width="100"
+                    width="96"
                   />
                 </td>
                 <td>
-                  <a href="/" data-slug={product.slug} onClick={onEdit}>
+                  <img
+                    src={`${HOST}/${product.thumbnail}`}
+                    alt={product.name}
+                    width="64"
+                  />
+                </td>
+                <td>
+                  <a href="/" data-id={product.id} onClick={onEdit}>
                     Редактировать
                   </a>
-                  <a href="/" data-slug={product.slug} onClick={onDelete}>
+                  <a href="/" data-id={product.id} onClick={onDelete}>
                     Удалить
                   </a>
                 </td>

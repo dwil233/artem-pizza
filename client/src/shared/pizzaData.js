@@ -15,9 +15,14 @@ export const doughTypes = [
 
 // Sauce
 export const sauceTypes = [
-  { slug: "tomato", name: "Томатный" },
-  { slug: "white", name: "Белый" },
-  { slug: "spicy", name: "Острый" },
+  { slug: "tomato", name: "Томатный", text: "под томатным соусом" },
+  { slug: "white", name: "Белый", text: "под белым соусом" },
+  { slug: "mayo", name: "Майонез", text: "под майонезом" },
+  { slug: "spicy", name: "Острый", text: "с острыми ощущениями" },
+  { slug: "mushroom", name: "Грибной", text: "под грибной заливкой" },
+  { slug: "garlic", name: "Чесночный", text: "под чесночным соусом" },
+  { slug: "sour", name: "Кисло-сладкий", text: "под кисло-сладким соусом" },
+  { slug: "mustard", name: "Горчичный", text: "с горчичной заправкой" },
 ];
 
 // Cheese

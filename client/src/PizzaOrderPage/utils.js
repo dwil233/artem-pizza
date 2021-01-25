@@ -21,7 +21,8 @@ export const getOrderData = (pizza, types, payData) => {
   });
 
   return {
-    ingredients: ingredients,
+    // ingredients: ingredients,
+    ingredients: pizza,
     address: `${payData.address} кв. ${payData.flat}, подъезд ${payData.entrance}, этаж ${payData.floor}`,
     name: payData.cardHolder,
     card_number: payData.cardNumber,

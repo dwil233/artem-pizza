@@ -6,14 +6,14 @@ import { getProductInfo, addOrEditProduct } from "../shared/product.api";
 
 export function ProductAddEditPage() {
   const history = useHistory();
-  const { slugToWork } = useParams();
+  const { prodId } = useParams();
   const [error, setError] = useState(false);
   const { register, handleSubmit, errors, setValue } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      if (slugToWork) {
-        await addOrEditProduct(data, slugToWork);
+      if (prodId) {
+        await addOrEditProduct(data, prodId);
       } else {
         await addOrEditProduct(data);
       }
@@ -31,16 +31,17 @@ export function ProductAddEditPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getProductInfo(slugToWork);
+        const data = await getProductInfo(prodId);
         const fields = ["category", "name", "slug", "price"];
         fields.forEach((field) => setValue(field, data[field]));
         setValue("image", null);
+        setValue("thumbnail", null);
       } catch (e) {
         setError(e.message);
       }
     };
 
-    if (slugToWork) {
+    if (prodId) {
       fetchData();
     } else {
       const defaultValues = {
@@ -49,12 +50,13 @@ export function ProductAddEditPage() {
         name: "",
         price: "0",
         image: null,
+        thumbnail: null,
       };
       Object.keys(defaultValues).forEach((key) =>
         setValue(key, defaultValues[key])
       );
     }
-  }, []);
+  }, [prodId, setValue]);
 
   if (error) {
     return (
@@ -68,11 +70,7 @@ export function ProductAddEditPage() {
   } else
     return (
       <div className="container">
-        {slugToWork ? (
-          <h1>Редактирование {slugToWork}</h1>
-        ) : (
-          <h1>Новый продукт</h1>
-        )}
+        {prodId ? <h1>Редактирование {prodId}</h1> : <h1>Новый продукт</h1>}
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
             Категория:
@@ -97,12 +95,12 @@ export function ProductAddEditPage() {
             {errors.name && <span>{errors.name.message}</span>}
           </label>
           <label>
-            Идентификатор:
+            Код (слаг):
             <input
               ref={register({
                 required: {
                   value: true,
-                  message: "Введите идентификатор продукта",
+                  message: "Введите код продукта",
                 },
                 pattern: {
                   value: /^[A-Za-z0-9_-]+$/i,
@@ -137,6 +135,20 @@ export function ProductAddEditPage() {
             {errors.price && <span>{errors.price.message}</span>}
           </label>
           <label>
+            Превью (тумба):
+            <input
+              ref={register({
+                required: {
+                  value: true,
+                  message: "Загрузите превью продукта",
+                },
+              })}
+              name="thumbnail"
+              type="file"
+            />
+            {errors.image && <span>{errors.image.message}</span>}
+          </label>
+          <label>
             Картинка:
             <input
               ref={register({
@@ -150,7 +162,7 @@ export function ProductAddEditPage() {
             />
             {errors.image && <span>{errors.image.message}</span>}
           </label>
-          <button>{slugToWork ? "Обновить данные" : "Добавить продукт"}</button>
+          <button>{prodId ? "Обновить данные" : "Добавить продукт"}</button>
         </form>
       </div>
     );

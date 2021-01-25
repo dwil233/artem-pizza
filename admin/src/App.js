@@ -15,7 +15,7 @@ export function App() {
         <Route exact path="/">
           <ProductListPage />
         </Route>
-        <Route path="/product/:slugToWork">
+        <Route path="/product/:prodId">
           <ProductAddEditPage />
         </Route>
         <Route path="/product/">
